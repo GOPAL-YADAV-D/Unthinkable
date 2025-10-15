@@ -1,0 +1,155 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  firstName    String?  @map("first_name")
+  lastName     String?  @map("last_name")
+  avatarUrl    String?  @map("avatar_url")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  goals         Goal[]
+  projects      Project[]
+  teamMemberships TeamMember[]
+  conversations LlmConversation[]
+
+  @@map("users")
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  color       String?  // hex color code
+  ownerId     String   @map("owner_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  owner User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  goals Goal[]
+
+  @@map("projects")
+}
+
+model Goal {
+  id          String       @id @default(uuid())
+  title       String
+  description String?
+  priority    Priority     @default(MEDIUM)
+  status      GoalStatus   @default(ACTIVE)
+  dueDate     DateTime?    @map("due_date")
+  projectId   String?      @map("project_id")
+  ownerId     String       @map("owner_id")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  // Relations
+  owner           User             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  project         Project?         @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  subtasks        Subtask[]
+  platformTags    GoalPlatformTag[]
+  teamMembers     TeamMember[]
+  conversations   LlmConversation[]
+
+  @@map("goals")
+}
+
+model Subtask {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  completed   Boolean  @default(false)
+  goalId      String   @map("goal_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  goal Goal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  @@map("subtasks")
+}
+
+model PlatformTag {
+  id    String @id @default(uuid())
+  name  String @unique
+  color String? // hex color code
+
+  // Relations
+  goals GoalPlatformTag[]
+
+  @@map("platform_tags")
+}
+
+model GoalPlatformTag {
+  goalId        String @map("goal_id")
+  platformTagId String @map("platform_tag_id")
+
+  // Relations
+  goal        Goal        @relation(fields: [goalId], references: [id], onDelete: Cascade)
+  platformTag PlatformTag @relation(fields: [platformTagId], references: [id], onDelete: Cascade)
+
+  @@id([goalId, platformTagId])
+  @@map("goal_platform_tags")
+}
+
+model TeamMember {
+  id       String  @id @default(uuid())
+  userId   String  @map("user_id")
+  goalId   String  @map("goal_id")
+  role     String?
+  initials String?
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goal Goal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, goalId])
+  @@map("team_members")
+}
+
+model LlmConversation {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  goalId    String?  @map("goal_id")
+  messages  Json     // Store conversation messages as JSON
+  modelUsed String?  @map("model_used")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goal Goal? @relation(fields: [goalId], references: [id], onDelete: SetNull)
+
+  @@map("llm_conversations")
+}
+
+// Enums
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
+
+  @@map("priority")
+}
+
+enum GoalStatus {
+  ACTIVE
+  COMPLETED
+  PAUSED
+  CANCELLED
+
+  @@map("goal_status")
+}
