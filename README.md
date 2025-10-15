@@ -6,35 +6,35 @@ A modern, intelligent productivity dashboard that helps you manage goals and tas
 
 ## ✨ Features
 
-### 🤖 AI-Powered Goal Management
+### AI-Powered Goal Management
 - **Smart Subtask Generation**: Describe your goal and get AI-generated, actionable subtasks
 - **Intelligent Breakdown**: AI analyzes goal complexity, priority, and timeline to create optimal task structures
 - **Context-Aware Suggestions**: Takes into account team size, skill level, and available resources
 
-### 📊 Interactive Dashboard
+### nteractive Dashboard
 - **Visual Progress Tracking**: Real-time progress bars showing completion percentage
 - **Calendar Integration**: Date-based goal organization with calendar view
 - **Dynamic Status Updates**: Goals automatically marked as completed when all subtasks are done
 - **Priority Management**: High, Medium, and Low priority classification with visual indicators
 
-### 🔧 Advanced Task Management
+### dvanced Task Management
 - **Subtask Toggle**: Click checkboxes to mark tasks complete/incomplete
 - **Auto Goal Completion**: Goals automatically transition between active and completed states
 - **Team Collaboration**: Assign team members and track collective progress
 - **Platform Tags**: Organize goals by platform or category
 
-### 🔐 Secure Authentication
+### Secure Authentication
 - **JWT-based Authentication**: Secure user sessions with access and refresh tokens
 - **User Management**: Registration, login, and profile management
 - **Protected Routes**: API endpoints secured with middleware authentication
 
-### 💾 Robust Data Management
+### Robust Data Management
 - **PostgreSQL Database**: Reliable data persistence with Prisma ORM
 - **Real-time Sync**: Changes reflect immediately across all clients
 - **Offline Fallback**: Graceful degradation when backend is unavailable
 - **Data Validation**: Comprehensive input validation and error handling
 
-## 🏗️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **Next.js 15.2.4** - React framework with App Router
@@ -59,7 +59,7 @@ A modern, intelligent productivity dashboard that helps you manage goals and tas
 - **Intelligent Prompting** - Context-aware AI prompts for optimal results
 - **Fallback Systems** - Graceful degradation when AI is unavailable
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Node.js 18+ 
@@ -160,7 +160,7 @@ A modern, intelligent productivity dashboard that helps you manage goals and tas
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:3001
 
-## 📖 Usage Guide
+## Usage Guide
 
 ### Creating Your First Goal
 
@@ -184,7 +184,7 @@ A modern, intelligent productivity dashboard that helps you manage goals and tas
 - **Set priorities** to focus on what matters most
 - **Share progress** with real-time updates
 
-## 🔌 API Reference
+## API Reference
 
 ### Authentication Endpoints
 ```
@@ -218,7 +218,7 @@ POST /api/llm/generate-subtasks  # Generate AI subtasks
 GET  /api/llm/status             # Check AI service status
 ```
 
-## 🧩 Project Structure
+## Project Structure
 
 ```
 productivity-dashboard/
@@ -258,7 +258,7 @@ productivity-dashboard/
 └── types.ts                # TypeScript type definitions
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Backend Tests
 ```bash
@@ -272,7 +272,7 @@ npm run test:watch # Run tests in watch mode
 npm test           # Run React tests
 ```
 
-## 📊 Database Schema
+## Database Schema
 
 ### Core Tables
 - **Users**: User accounts and authentication
@@ -326,19 +326,3 @@ npm start
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
-
-- **Google Gemini AI** for intelligent task generation
-- **shadcn/ui** for beautiful, accessible components
-- **Prisma** for excellent database tooling
-- **Next.js** team for the amazing React framework
-
-## 📞 Support
-
-- **Issues**: [GitHub Issues](https://github.com/yourusername/productivity-dashboard/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/productivity-dashboard/discussions)
-- **Email**: your.email@example.com
-
----
-
-Built with ❤️ for productive teams everywhere
